@@ -10,6 +10,7 @@ key = "?key=qaclick123"
 
 class GoogleMapsApi:
 
+    # POST запрос - создание нового места
     @staticmethod
     def create_new_place() -> Response:
         # Тело POST запроса
@@ -45,3 +46,22 @@ class GoogleMapsApi:
         print(result_post.text)
 
         return result_post
+
+    # GET запрос - получение места
+    @staticmethod
+    def get_new_place(place_id) -> Response:
+        # Ресурс метода GET
+        get_resource = "/maps/api/place/get/json"
+
+        # Полный URL
+        get_url = base_url + get_resource + key + "&place_id=" + place_id
+
+        print(get_url)
+
+        # Выполнение GET запроса
+        result_get = HTTPMethods.get(get_url)
+
+        # Вывод ответа
+        print(result_get.text)
+
+        return result_get
