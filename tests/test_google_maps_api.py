@@ -1,5 +1,6 @@
 from requests import Response
 from utils.api import GoogleMapsApi
+from utils.checking import Checking
 
 
 class TestCreatePlace:
@@ -15,18 +16,16 @@ class TestCreatePlace:
         place_id = result_post.json()["place_id"]
 
         # Проверка POST
-        assert result_post.status_code == 200
-        print("POST запрос отработал, статус код 200")
+        Checking.check_status_code(result_post, 200)
 
         # Метод GET
-        print("\nМетод GET")
+        print("\nМетод GET POST")
 
         # Вызов GET метода
         result_get: Response = GoogleMapsApi.get_new_place(place_id)
 
         # Проверка GET
-        assert result_get.status_code == 200
-        print("GET запрос отработал, статус код 200")
+        Checking.check_status_code(result_get, 200)
 
         # Метод PUT
         print("\nМетод PUT")
@@ -35,13 +34,21 @@ class TestCreatePlace:
         result_put: Response = GoogleMapsApi.put_new_place(place_id)
 
         # Проверка PUT
-        assert result_put.status_code == 200
-        print("PUT запрос отработал, статус код 200")
+        Checking.check_status_code(result_put, 200)
 
         # Проверка сообщения PUT
         check_put = result_put.json()
         assert check_put["msg"] == "Address successfully updated"
         print("PUT message корректный")
+
+        # Метод GET
+        print("\nМетод GET PUT")
+
+        # Вызов GET метода
+        result_get: Response = GoogleMapsApi.get_new_place(place_id)
+
+        # Проверка GET
+        Checking.check_status_code(result_get, 200)
 
         # Метод DELETE
         print("\nМетод DELETE")
@@ -50,10 +57,18 @@ class TestCreatePlace:
         result_delete: Response = GoogleMapsApi.delete_new_place(place_id)
 
         # Проверка DELETE
-        assert result_delete.status_code == 200
-        print("DELETE запрос отработал, статус код 200")
+        Checking.check_status_code(result_delete, 200)
 
         # Проверка значения поля status
         check_delete = result_delete.json()
         assert check_delete["status"] == "OK"
         print("DELETE message корректный")
+
+        # Метод GET
+        print("\nМетод GET DELETE")
+
+        # Вызов GET метода
+        result_get: Response = GoogleMapsApi.get_new_place(place_id)
+
+        # Проверка GET
+        Checking.check_status_code(result_get, 404)
