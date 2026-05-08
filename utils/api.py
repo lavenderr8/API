@@ -62,3 +62,27 @@ class GoogleMapsApi:
         print(result_get.text)
 
         return result_get
+
+    @staticmethod
+    def put_new_place(place_id) -> Response:
+        # Ресурс метода PUT
+        put_resource = "/maps/api/place/update/json"
+
+        # Полный URL
+        put_url = GoogleMapsApi.base_url + put_resource + GoogleMapsApi.key
+        print(put_url)
+
+        # Тело PUT запроса
+        json_for_update_new_location = {
+            "place_id": place_id,
+            "address": "100 Lenina street, RU",
+            "key": "qaclick123"
+        }
+
+        # Выполнение PUT запроса
+        result_put = HTTPMethods.put(put_url, json_for_update_new_location)
+
+        # Вывод ответа
+        print(result_put.text)
+
+        return result_put
