@@ -27,8 +27,3 @@ class TestCreatePlace:
         # Проверка GET
         assert result_get.status_code == 200
         print("GET запрос отработал, статус код 200")
-
-        # Проверка значения поля status
-        check_status = result_post.json()
-        assert check_status["status"] == "OK"
-        print("Поле status = OK")

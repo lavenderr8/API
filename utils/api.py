@@ -1,14 +1,13 @@
 from requests import Response
 from utils.http_methods import HTTPMethods
 
-# Базовый URL
-base_url = "https://rahulshettyacademy.com"
-
-# Параметр для всех запросов
-key = "?key=qaclick123"
-
 
 class GoogleMapsApi:
+    # Базовый URL
+    base_url = "https://rahulshettyacademy.com"
+
+    # Параметр для всех запросов
+    key = "?key=qaclick123"
 
     # POST запрос - создание нового места
     @staticmethod
@@ -35,8 +34,7 @@ class GoogleMapsApi:
         post_resource = "/maps/api/place/add/json"
 
         # Полный URL
-        post_url = base_url + post_resource + key
-
+        post_url = GoogleMapsApi.base_url + post_resource + GoogleMapsApi.key
         print(post_url)
 
         # Выполнение POST запроса
@@ -54,8 +52,7 @@ class GoogleMapsApi:
         get_resource = "/maps/api/place/get/json"
 
         # Полный URL
-        get_url = base_url + get_resource + key + "&place_id=" + place_id
-
+        get_url = GoogleMapsApi.base_url + get_resource + GoogleMapsApi.key + "&place_id=" + place_id
         print(get_url)
 
         # Выполнение GET запроса
