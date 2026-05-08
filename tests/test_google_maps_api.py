@@ -27,6 +27,8 @@ class TestCreatePlace:
         # Проверка GET
         assert result_get.status_code == 200
         print("GET запрос отработал, статус код 200")
+
+        # Метод PUT
         print("\nМетод PUT")
 
         # Вызов PUT метода
@@ -40,3 +42,18 @@ class TestCreatePlace:
         check_put = result_put.json()
         assert check_put["msg"] == "Address successfully updated"
         print("PUT message корректный")
+
+        # Метод DELETE
+        print("\nМетод DELETE")
+
+        # Вызов DELETE метода
+        result_delete: Response = GoogleMapsApi.delete_new_place(place_id)
+
+        # Проверка DELETE
+        assert result_delete.status_code == 200
+        print("DELETE запрос отработал, статус код 200")
+
+        # Проверка значения поля status
+        check_delete = result_delete.json()
+        assert check_delete["status"] == "OK"
+        print("DELETE message корректный")
