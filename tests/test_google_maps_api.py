@@ -16,6 +16,12 @@ class TestCreatePlace:
         # Проверка POST
         Checking.check_status_code(result_post, 200)
 
+        # Проверка обязательных полей POST
+        Checking.check_json_token(
+            result_post,
+            expected_value=['status', 'place_id', 'scope', 'reference', 'id']
+        )
+
         # Проверка значения поля status
         check_post = result_post.json()
         assert check_post["status"] == "OK"
@@ -41,6 +47,13 @@ class TestCreatePlace:
         # Проверка GET
         Checking.check_status_code(result_get, 200)
 
+        # Проверка обязательных полей GET
+        Checking.check_json_token(
+            result_get,
+            expected_value=['location', 'accuracy', 'name', 'phone_number',
+                            'address', 'types', 'website', 'language']
+        )
+
     # Тест PUT метода
     def test_put_new_place(self):
         # Метод POST
@@ -60,6 +73,12 @@ class TestCreatePlace:
 
         # Проверка PUT
         Checking.check_status_code(result_put, 200)
+
+        # Проверка обязательных полей PUT
+        Checking.check_json_token(
+            result_put,
+            expected_value=['msg']
+        )
 
         # Проверка сообщения PUT
         check_put = result_put.json()
@@ -86,7 +105,16 @@ class TestCreatePlace:
         # Проверка DELETE
         Checking.check_status_code(result_delete, 200)
 
+        # Проверка обязательных полей DELETE
+        Checking.check_json_token(
+            result_delete,
+            expected_value=['status']
+        )
+
         # Проверка значения поля status
         check_delete = result_delete.json()
         assert check_delete["status"] == "OK"
         print("DELETE message корректный")
+
+    # Вывод об успешном завершении теста
+    print("\nТестирование создания, изменения и удаления новой локации прошло успешно!")
