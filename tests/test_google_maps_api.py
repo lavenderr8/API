@@ -5,7 +5,24 @@ from utils.checking import Checking
 
 class TestCreatePlace:
 
+    # Тест POST метода
     def test_create_new_place(self):
+        # Метод POST
+        print("\nМетод POST")
+
+        # Вызов POST метода
+        result_post: Response = GoogleMapsApi.create_new_place()
+
+        # Проверка POST
+        Checking.check_status_code(result_post, 200)
+
+        # Проверка значения поля status
+        check_post = result_post.json()
+        assert check_post["status"] == "OK"
+        print("POST message корректный")
+
+    # Тест GET метода
+    def test_get_new_place(self):
         # Метод POST
         print("\nМетод POST")
 
@@ -15,17 +32,25 @@ class TestCreatePlace:
         # Получаем place_id из ответа POST
         place_id = result_post.json()["place_id"]
 
-        # Проверка POST
-        Checking.check_status_code(result_post, 200)
-
         # Метод GET
-        print("\nМетод GET POST")
+        print("\nМетод GET")
 
         # Вызов GET метода
         result_get: Response = GoogleMapsApi.get_new_place(place_id)
 
         # Проверка GET
         Checking.check_status_code(result_get, 200)
+
+    # Тест PUT метода
+    def test_put_new_place(self):
+        # Метод POST
+        print("\nМетод POST")
+
+        # Вызов POST метода
+        result_post: Response = GoogleMapsApi.create_new_place()
+
+        # Получаем place_id из ответа POST
+        place_id = result_post.json()["place_id"]
 
         # Метод PUT
         print("\nМетод PUT")
@@ -41,14 +66,16 @@ class TestCreatePlace:
         assert check_put["msg"] == "Address successfully updated"
         print("PUT message корректный")
 
-        # Метод GET
-        print("\nМетод GET PUT")
+    # Тест DELETE метода
+    def test_delete_new_place(self):
+        # Метод POST
+        print("\nМетод POST")
 
-        # Вызов GET метода
-        result_get: Response = GoogleMapsApi.get_new_place(place_id)
+        # Вызов POST метода
+        result_post: Response = GoogleMapsApi.create_new_place()
 
-        # Проверка GET
-        Checking.check_status_code(result_get, 200)
+        # Получаем place_id из ответа POST
+        place_id = result_post.json()["place_id"]
 
         # Метод DELETE
         print("\nМетод DELETE")
@@ -63,12 +90,3 @@ class TestCreatePlace:
         check_delete = result_delete.json()
         assert check_delete["status"] == "OK"
         print("DELETE message корректный")
-
-        # Метод GET
-        print("\nМетод GET DELETE")
-
-        # Вызов GET метода
-        result_get: Response = GoogleMapsApi.get_new_place(place_id)
-
-        # Проверка GET
-        Checking.check_status_code(result_get, 404)

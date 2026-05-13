@@ -47,7 +47,7 @@ class GoogleMapsApi:
 
     # GET запрос - получение места
     @staticmethod
-    def get_new_place(place_id) -> Response:
+    def get_new_place(place_id: str) -> Response:
         # Ресурс метода GET
         get_resource = "/maps/api/place/get/json"
 
@@ -63,8 +63,9 @@ class GoogleMapsApi:
 
         return result_get
 
+    # PUT запрос - изменение места
     @staticmethod
-    def put_new_place(place_id) -> Response:
+    def put_new_place(place_id: str) -> Response:
         # Ресурс метода PUT
         put_resource = "/maps/api/place/update/json"
 
@@ -89,7 +90,7 @@ class GoogleMapsApi:
 
     # DELETE запрос - удаление места
     @staticmethod
-    def delete_new_place(place_id) -> Response:
+    def delete_new_place(place_id: str) -> Response:
         # Ресурс метода DELETE
         delete_resource = "/maps/api/place/delete/json"
 

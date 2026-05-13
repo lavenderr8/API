@@ -6,9 +6,11 @@ class Checking:
 
     # Метод для проверки статус-кода
     @staticmethod
-    def check_status_code(response: Response, status_code):
+    def check_status_code(response: Response, status_code: int):
         # Проверка статус-кода
-        assert status_code == response.status_code
+        assert status_code == response.status_code, \
+            "Неверный статус-код! Ожидался: " + str(status_code) + \
+            ", получен: " + str(response.status_code)
 
         # Вывод успешного статус-кода
         print("Успешно! Статус-код: " + str(response.status_code))
