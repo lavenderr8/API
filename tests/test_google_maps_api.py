@@ -15,13 +15,14 @@ class TestCreatePlace:
         # Проверка POST
         Checking.check_status_code(result_post, 200)
 
+        # Проверка обязательных полей POST
+        Checking.check_json_token(
+            result_post,
+            expected_value=['status', 'place_id', 'scope', 'reference', 'id']
+        )
+
         # Проверка значения поля status
-        check_post = result_post.json()
-
-        assert check_post["status"] == "OK", \
-            "Неверное значение поля status"
-
-        print("POST message корректный")
+        Checking.check_json_value(result_post, 'status', 'OK')
 
     # Тест GET метода
     def test_get_new_place(self):
@@ -43,6 +44,28 @@ class TestCreatePlace:
         # Проверка GET
         Checking.check_status_code(result_get, 200)
 
+        # Проверка обязательных полей GET
+        Checking.check_json_token(
+            result_get,
+            expected_value=[
+                'location',
+                'accuracy',
+                'name',
+                'phone_number',
+                'address',
+                'types',
+                'website',
+                'language'
+            ]
+        )
+
+        # Проверка значения поля address
+        Checking.check_json_value(
+            result_get,
+            'address',
+            '29, side layout, cohen 09'
+        )
+
     # Тест PUT метода
     def test_put_new_place(self):
         # Метод POST
@@ -63,13 +86,18 @@ class TestCreatePlace:
         # Проверка PUT
         Checking.check_status_code(result_put, 200)
 
-        # Проверка сообщения PUT
-        check_put = result_put.json()
+        # Проверка обязательных полей PUT
+        Checking.check_json_token(
+            result_put,
+            expected_value=['msg']
+        )
 
-        assert check_put["msg"] == "Address successfully updated", \
-            "Неверное значение поля msg"
-
-        print("PUT message корректный")
+        # Проверка значения поля msg
+        Checking.check_json_value(
+            result_put,
+            'msg',
+            'Address successfully updated'
+        )
 
     # Тест DELETE метода
     def test_delete_new_place(self):
@@ -91,10 +119,15 @@ class TestCreatePlace:
         # Проверка DELETE
         Checking.check_status_code(result_delete, 200)
 
+        # Проверка обязательных полей DELETE
+        Checking.check_json_token(
+            result_delete,
+            expected_value=['status']
+        )
+
         # Проверка значения поля status
-        check_delete = result_delete.json()
-
-        assert check_delete["status"] == "OK", \
-            "Неверное значение поля status"
-
-        print("DELETE message корректный")
+        Checking.check_json_value(
+            result_delete,
+            'status',
+            'OK'
+        )
